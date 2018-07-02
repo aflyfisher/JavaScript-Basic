@@ -11,3 +11,14 @@ console.log(s.age);
 // 检测变量的值的类型
 console.log( typeof null);//object
 console.log(typeof {});//object
+/* -------------------------------------------作用域------------------------------------------------ */
+var color = "blue";
+function changeColor() {
+    if (color === "blue") {
+        color = "red";
+    } else {
+        color = "blue";
+    }
+}
+changeColor();
+console.log("Color is now " + color);//red
