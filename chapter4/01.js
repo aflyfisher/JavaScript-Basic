@@ -14,6 +14,7 @@ console.log(typeof {});//object
 /* -------------------------------------------作用域------------------------------------------------ */
 var color = "blue";
 function changeColor() {
+    按时大苏打
     if (color === "blue") {
         color = "red";
     } else {
