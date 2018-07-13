@@ -1,5 +1,5 @@
 var s = {
-    name:'张三'
+    name:'zhansgan'
 };
 var k = s;
 k.age = 23;
@@ -12,7 +12,6 @@ console.log(s.age);
 console.log( typeof null);// object
 console.log(typeof {}); // object
 /* -------------------------------------------作用域------------------------------------------------ */
-var color = 'blue';
 function changeColor() {
     if (color === 'blue') {
         color = 'red';
@@ -22,3 +21,4 @@ function changeColor() {
 }
 changeColor();
 console.log('Color is now ' + color);// red撒打算
+
