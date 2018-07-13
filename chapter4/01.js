@@ -21,4 +21,3 @@ function changeColor() {
 }
 changeColor();
 console.log('Color is now ' + color);// red撒打算
-
