@@ -143,6 +143,49 @@
 + 方括号表示法
  就是将属性名的字符串形式放在方括号中来进行访问，例如`student["name"]`,
 > 方括号表示法的好处之一是可以通过变量的形式访问对象的属性
-
- 
-
+##5.2 数组
+###5.2.1创建数组的方式
+1. 构造函数`new Array(param)`方法，参数param可有可无，如果param是一个数字，表示其创建素组的长度；如果是其他（比如是字符串和对象），那么就会创建一个`length`为1的数组,其对应项就是param
+2. 字面量 `var arr = []`方法
+###5.2.2 数组中的length
+数组中的`length`属性不是只读的，你可以给数组设置`length`属性，来达到一定的目的，例如：
+``` javascript
+    let colorArr = ['red','yellow','green'];
+    colorArr.length = 100;
+    // 此时当访问colorArr的length的时候，值是100，只不过从第四项开始一直到最后一项都是undefined
+```
+###5.2.3 检测一个对象是否是数组
+`Array.isArray(value)`,这里的value就是要检测的对象或数组，返回`true`或者`false`;
+###5.2.4 数组中常用的一些方法
+`push()和pop()`：其中`push()`方法接受任意数量的参数，以将其逐个添加到数组的末尾，并返回修改后数组的length（也就是说操作的结果是一个数字）;而`pop()`则是从数组的末尾移除最后一项，并返回移除的项；
+``` javascript
+    // push()
+    let arr = [1,2,3];
+    console.log(arr.push('4','7','22'));// 6；
+    console.log(arr);// [ 1, 2, 3, '4', '7', '22' ]
+    // pop()
+    console.log(arr.pop());//‘22’
+```
+`unshift()和shift()`：这里`unshift()`方法和`push()`方法类似,也接受任意数量的参数，只不过会将参数逐个添加到数组的顶部，并返回修改后数组的长度；`shift()`方法和`pop()`方法类似，移除数组的第一项并返回之
+``;
+``;
+``;
+``;
+``;
+###5.2.5 数组的重排序
+`arr.reverse()`是反转数组，`arr.sort()`方法会对数组进行重排序,但问题是`sort()`方法排序实际上先将数组中的某一项调用`toString()`方法转化为字符串后再进行排序，这样肯定不行。
+sort()方法一般要接受一个比较函数作为参数：
+``` javascript
+    var arr1 = [1, 4, 3, 6, 9, 2];
+    function sortBy(pa1,pa2) {
+        if (pa1>pa2){
+            return 1;
+        }else if(pa1<pa2){
+            return -1;
+        }else if (pa1 === pa2) {
+            return 0;
+        }
+    }
+    console.log(arr1.sort(sortBy));//一个拍过序的数组，从小到大
+```
+> reverse()和 sort()方法的返回值是经过排序之后的数组

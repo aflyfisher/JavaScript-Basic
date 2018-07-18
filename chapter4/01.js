@@ -1,7 +1,7 @@
-var s = {
+let s = {
     name:'zhansgan'
 };
-var k = s;
+let k = s;
 k.age = 23;
 console.log(s.age);
 // 如果引用类型的变量s保存的是值，那么k保存的也是值，两者相互不影响
