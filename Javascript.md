@@ -157,7 +157,7 @@
 ###5.2.3 检测一个对象是否是数组
 `Array.isArray(value)`,这里的value就是要检测的对象或数组，返回`true`或者`false`;
 ###5.2.4 数组中常用的一些方法
-`push()和pop()`：其中`push()`方法接受任意数量的参数，以将其逐个添加到数组的末尾，并返回修改后数组的length（也就是说操作的结果是一个数字）;而`pop()`则是从数组的末尾移除最后一项，并返回移除的项；
+1. `push()和pop()`：其中`push()`方法接受任意数量的参数，以将其逐个添加到数组的末尾，并返回修改后数组的length（也就是说操作的结果是一个数字）;而`pop()`则是从数组的末尾移除最后一项，并返回移除的项；
 ``` javascript
     // push()
     let arr = [1,2,3];
@@ -166,11 +166,32 @@
     // pop()
     console.log(arr.pop());//‘22’
 ```
-`unshift()和shift()`：这里`unshift()`方法和`push()`方法类似,也接受任意数量的参数，只不过会将参数逐个添加到数组的顶部，并返回修改后数组的长度；`shift()`方法和`pop()`方法类似，移除数组的第一项并返回之
-``;
-``;
-``;
-``;
+2. `unshift()和shift()`：这里`unshift()`方法和`push()`方法类似,也接受任意数量的参数，只不过会将参数逐个添加到数组的顶部，并返回修改后数组的长度；`shift()`方法和`pop()`方法类似，移除数组的第一项并返回之
+3. `concat(param)`方法：首先会复制一份原数组的副本，参数`param`如果是一个（或多个）数组，结果会将数组中的每一项的依次拼接到原数组后面，并返回之；如果`param`不是数组，那么就会将`param`直接拼接到原数组后面并返回之
+4. `slice()方法`：会基于当前数组中的一项或者多项，返回新创建的新的数组。接受一个或者两个参数，即返回项的起始和结束位置（如果是两个参数，返回的是不包括结束位置项）
+``` javascript
+    let person = ['hello','world','biadu','pingk'];
+    console.log(person.slice(1,2));// world
+    console.log(person.slice(1)); // [ 'world', 'biadu', 'pingk' ]
+    console.log(person.slice());// 返回原数组
+```
+>如果参数中有负数，那么就加上原数组的length，再进行分析
+
+5. `splice()方法`：功能非常强大
+    + *删除*：传递两个参数，即要删除项的起始位置和要删除的项数；
+    + *插入*：传递三个参数,即要删除项的起始位置，0，和要插入的项（如果有多项要插入，就接着传）；
+    + *替换*：传递三个参数，即要删除项的起始位置，删除的项数和要插入的项（如果有多项，就接着传，其中删除项的起始位置也就是插入项的起始位置）；
+    > 该方法返回的结果是由返回的项组成的数组，操作元素组；
+``` javascript
+        let personAee = ['Tom','Jerry','Herry','perter','Sans','Cary'];
+        let los = personAee;
+        console.log(personAee.splice(2, 3, 'John', 'Smith'));// 'Herry','perter','Sans'
+        console.log(personAee);// 'Tom','Jerry','John','Smith','Cary'
+        console.log(los);// 'Tom','Jerry','John','Smith','Cary',因为两个变量之乡的是同一个数组，当一个变化的时候两一个也会被影响到
+        console.log(los.splice(1, 0, 'Herry', 'Jundle'));// 'Tom', 'Herry', 'Jundle', 'Jerry', 'John', 'Smith', 'Cary'
+```
+`indexOf()和lastIndexOf()方法：` 两个可以接受两个参数，要查找的项和查找起点位置的索引;两个唯一的区别是查找的方向不同：前者是由前往后查找，后者是由后向前查找，都返回查找项在数组中的位置，如果没有查找到就返回-1
+`迭代方法：`非常多，包括`map()`,`every()`,`filter()`,`each()`等不再详细赘述
 ``;
 ###5.2.5 数组的重排序
 `arr.reverse()`是反转数组，`arr.sort()`方法会对数组进行重排序,但问题是`sort()`方法排序实际上先将数组中的某一项调用`toString()`方法转化为字符串后再进行排序，这样肯定不行。
@@ -189,3 +210,4 @@ sort()方法一般要接受一个比较函数作为参数：
     console.log(arr1.sort(sortBy));//一个拍过序的数组，从小到大
 ```
 > reverse()和 sort()方法的返回值是经过排序之后的数组
+##5.3 Date类型

@@ -34,3 +34,20 @@ function sortBy(pa1,pa2) {
     }
 }
 console.log(arr1.sort(sortBy));
+// concat()
+let app = ['red','yellow','black'];
+console.log(app.concat('green'));
+console.log(Array.isArray(app.concat('green').concat('pink')));
+// slice();
+let person = ['hello','world','biadu','pingk'];
+console.log(person.slice(1,2));// world
+console.log(person.slice(1)); // [ 'world', 'biadu', 'pingk' ]
+console.log(person.slice());// 返回原数组
+// splice（）
+let personAee = ['Tom','Jerry','Herry','perter','Sans','Cary'];
+let los = personAee;
+console.log(personAee.splice(2, 3, 'John', 'Smith'));// 'Herry','perter','Sans'
+console.log(personAee);// 'Tom','Jerry','John','Smith','Cary'
+console.log(los + '123'); // 'Tom','Jerry','John','Smith','Cary'
+console.log(los.splice(1, 0, 'Herry', 'Jundle'));// 'Tom', 'Herry', 'Jundle', 'Jerry', 'John', 'Smith', 'Cary'
+console.log(los);
