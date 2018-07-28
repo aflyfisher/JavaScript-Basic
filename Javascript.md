@@ -220,3 +220,61 @@ sort()方法一般要接受一个比较函数作为参数：
 ![avata](img/date00.png)
 ![avata](img/date01.png)
 >这些方法是Date对象的方法，所以在调用的时候在这些方法前面加上实例Date对象实例，例如`date.getFullYear（）`
+##5.4 正则表达式
+###5.4.1 正则表达式的写法；
+1. 字面量语法
+`var expression = / pattern / flags` ;其中`flags`可以是：
+`g`:全局匹配，不止匹配一次(即匹配到一次后还会继续匹配,下一次匹配是在上一次匹配到的字符的下个字符开始匹配)；
+``` javascript
+    let reg4 = /.bo/g;
+    let str4 = 'abobobobob';  //只会匹配两次，第一次匹配到’abo‘（0-2），第二次匹配到’obo‘；
+    // 第一次匹配到abo，第二次是从第四个字符开始匹配
+```
+`i`:在匹配的时候不区分大小写；
+`m`:可以换行匹配；
+三个的任意组合；
+
+2. 构造函数语法：
+`var reg = new RegExp('pattern',[flags])`，两个参数，一个是字面量模式中pattern的字符串模式，另一个是flag的字符串形式
+``` javascript
+    var reg = /[sbs]er/ig;
+    var reg =  new RegExp('[sbs]er','ig');
+    // 两个一样
+```
+> 对于字面量中的转译字符`\`，在构造函数中会要写成`\\`即可，其他不用管
+
+###5.4.2 正则表达式中的元字符；
+`( [ { \ ^ $ | ) ? * + .]}`，所谓的元字符，就是这些字符在一般情况下是作为规则的一部分不参与匹配，
+但如果想要匹配这些元字符，就需要使用`\`对这些元字符转译；其中元字符`^`和`$`分别匹配字符串的开始和结尾；
+###5.4.3 正则表达式的一些方法；
+1. `reg.exec()`:里面传一个参数即要匹配的字符串；
+如果能匹配的到，就返回一个数组，数组的第一项表示与整个模式匹配的字符串，第二项是与模式中捕获组匹配的字符串（如果没有捕获组，那么该数组就只有一项），与此同时，该数组有两个属性：`input`表示应用正则表达式的字符串，`index`表示匹配项在字符串中的位置。
+``` javascript
+    var text = "mom and dad and baby";
+    var pattern = /mom( and dad( and baby)?)?/gi;
+    var matches = pattern.exec(text);
+    alert(matches.index); // 0
+    alert(matches.input); // "mom and dad and baby"
+    alert(matches[0]); // "mom and dad and baby"
+    alert(matches[1]); // " and dad and baby"
+    alert(matches[2]); // " and baby"
+```
+<font color = red>如果正则表达式是全局匹配`g`，那么每次调用该方法，都会在原来的基础上查找新的匹配项;如果不是全局匹配，那么每次执行该方法都会从最初的起始位置开始搜索</font>
+``` javascript
+    let text = 'cat, bat, sat, fat';
+    let pattern1 = /.at/g;
+
+    let maches = pattern1.exec(text);
+    console.log(maches[0]);// cat
+    console.log(maches.index);// 0 因为是第一次执行该方法，所以是0
+    console.log(maches.input);// 'cat, bat, sat, fat'   应用该正则表达式的字符串
+    console.log(maches.lastIndex);// 3 表示开始搜索下一个匹配项的起始位置，因为下一次搜索匹配项的开始位置是3
+    maches = pattern1.exec(text);
+    console.log(maches[0]);// bat
+    console.log(maches.index);// 5 因为是第二次执行该方法，所以是5
+    console.log(maches.input);// 'cat, bat, sat, fat'   应用该正则表达式的字符串
+    console.log(maches.lastIndex);// 8 表示开始搜索下一个匹配项的起始位置；同理
+
+```
+如果没有匹配的到，就返回null；
+2. `reg.test(str)`方法：如果至少匹配到一次，就返回`true`,否则就返回`false`;常用于判断表单中的输入是否合乎规则；
