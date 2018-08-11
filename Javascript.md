@@ -278,3 +278,95 @@ sort()方法一般要接受一个比较函数作为参数：
 ```
 如果没有匹配的到，就返回null；
 2. `reg.test(str)`方法：如果至少匹配到一次，就返回`true`,否则就返回`false`;常用于判断表单中的输入是否合乎规则；
+##5.5 函数Function
+###5.5.1 函数的定义和理解
+函数是一个对象(new Function())，那么函数名其实就是一个指向该函数的指针；
+###5.5.2 函数声明和函数表达式；
+两者最大的却别在于：函数声明有一个‘函数声明提升’的过程，也就是说可以在函数声明前调用该函数，
+但是函数表达式没有该过程，代码只能按顺序执行;
+``` javascript
+    // 为什么该函数会在函数声明之前调用？这是因为函数声明有一个函数声明提升的过程，
+    // 虽然是声明函数在后，但引擎在解析的时候，会把函数声明代码提升到最顶部，所以还是相当于先执行了函数声明的代码
+    console.warn(reduce1(21));//10
+    function reduce1 (params) {
+        return params - 11;
+    }
+    // 函数表达式没有提升，只能是按顺序执行,所以当执行第一段代码的时候，由于找不到该变量reduce2，所以就会报错；
+    console.log(reduce2(190));// reduce2 is  not a function
+    var reduce2 = function (params) {
+        return params - 14;
+    };
+```
+###5.5.3 arguments和this
+两者都是函数内部的属性，`arguments`是一个类似数组的一个对象，包含着传入函数中的所有参数，除此之外该对象还有一个属性`callee`,是一个指针，指向拥有该`arguments`对象的函数；
+``` javascript
+    function getSum(params) {
+        console.log(arguments);
+        console.log(arguments.callee); // getSum函数本身
+        return params + 10;
+    }
+```
+`arguments.callee`但最主要的用途是用在递归中，例如：
+``` javascript
+    // 递归阶乘
+    function Sum(params) {
+        if (params > 1) {
+            return params * arguments.callee(params - 1);
+        }
+        else {
+            return 1;
+        }
+    }
+
+    // 递归 求和；
+    function Sum2(params) {
+        if (params > 0) {
+            return  params+arguments.callee(params - 1);
+        }else{
+            return 1
+        }
+    }
+    console.log(Sum2(12));
+```
+`this`也是一个指针，指向函数据以执行的环境对象（也就是函数在哪里执行`this`就代表什么对象），也就是`this`的值。
+`caller`,函数的另一个属性；是一个指针，指向调用该函数的函数的引用，这里的`该函数`是谁，遵循一条规则---`谁·caller`就是谁,也就是说哪个函数调用了`该函数`，该指针就指向那个函数。
+``` javascript
+    function acer () {
+        get();//很明显是acer函数调用了这个函数
+    }
+
+    function get() {
+        console.log(get.caller);
+    }
+    acer();// acer 函数本身；
+```
+###5.5.4 call和apply；
+用途都是在特定的作用域中调用函数，实际上等于设置函数体内 `this` 对象的值（<font color = red>改变函数体内`this`的指向</font>），
+``` javascript
+    window.color = 'red';
+    var o = {color:'blue'};
+    function sayColor() {
+        console.log(this.color);
+    }
+    sayColor.call(o);// blue,因为此时sayColor中的this就指向了对象o，所以就是blue；
+    sayColor.call(window) // red,同上，sayColor中的this指向了window，所以就是red；
+    sayColor.call(this)// this 在全局环境下就是window，所以还是相当于指向了window
+```
+
+其中`call`接受俩个参数，一个是在其中运行函数的作用域，一个是参数数组（或者`arguments`）；
+`apply`接受多参数，第一个总是运行函数中`this`的指向，后面的就是列举的其他参数（形参）
+<hr/>
+bind()方法：该方法会创建一个函数的实例，并且该函数的实例中的this指向传递给bind()方法的参数。
+``` javascript
+    window.color = 'yellow',
+    var obj = {
+        color: 'pink'
+    };
+
+    function sayColor1() {
+        console.log(this.color)
+    }
+    var hhh =  sayColor1.bind(obj);//创建的一个新的函数实例
+    hhh();
+    // 此时hhh函数中的this就指向obj，所以是pink
+```
