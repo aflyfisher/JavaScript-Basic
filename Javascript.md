@@ -355,7 +355,6 @@ sort()方法一般要接受一个比较函数作为参数：
 
 其中`call`接受俩个参数，一个是在其中运行函数的作用域，一个是参数数组（或者`arguments`）；
 `apply`接受多参数，第一个总是运行函数中`this`的指向，后面的就是列举的其他参数（形参）
-<hr/>
 bind()方法：该方法会创建一个函数的实例，并且该函数的实例中的this指向传递给bind()方法的参数。
 ``` javascript
     window.color = 'yellow',
@@ -369,4 +368,54 @@ bind()方法：该方法会创建一个函数的实例，并且该函数的实�
     var hhh =  sayColor1.bind(obj);//创建的一个新的函数实例
     hhh();
     // 此时hhh函数中的this就指向obj，所以是pink
+```
+###5.6 基本包装类型(String，Boolean，Number)
+其实在每次在访问基本类型的时候,都会在背后创建一个对应的包装类型对象，从而让我们能过够通过一些方法操作数据（只存在于访问变量的顺瞬间，然后立即销毁）
+#### 5.6.1 Number的那些常用的方法;
+1. `num.toString(n)`返回`num`的n进制表示的字符串；
+2. `num.toFixed(n)`将数字`num`保留位小数，会四舍五入；
+3. `num.toPrecision()`返回数字`num`的最佳表现形式；
+#### 5.6.2 String类型的方法
+1. `str.charAt(index)` 返回字符串`str`中下标是`index`的字符;
+2. `str.charCodeAt(index)` 返回字符串`str`中下标是`index`的字符的编码;
+3. `str.concat(str1,str2,...)`将一个或者多个字符串拼接到str的后面（其实并不常用，一般用“+”就可以了）；
+4. `str.slice(startIndex,[endIndex])` 返回将字符串`str`从`startIndex`处开始裁剪到（如果有）`endIndex`(不包括)结束的子字符串。
+5. `str.substring(startIndex,[endIndex])` 同上；
+6. `str.substr(startIndex[,length])` 返回将str从`startindex`处开始裁剪，裁剪（如果有）长度为`length`的字符串；
+>在传递给这些方法的参数是负值的情况下，它们的行为就不尽相同了。其中，slice()方法会将传入的负值与字符串的长度相加，substr()方法将负的第一个参数加上字符串的长度，而将负的第二个参数转换为 0。最后，substring()方法会把所有负值参数都转换为 0。
+7. `indexOf()`和`lastIndexOf()`:传入一个要查找的字符串，如果在str中找到，则返回该字符串的下标，如果没找到则返回-1，两者的不同之处在于前者是正向查找，后者是反向查找。也都可以接受第二个参数表示从哪个下标开始查起。
+`trim()`去掉字符串str两边的空格；不操作原字符串
+8. `toUpperCase()`和`toLowerCase()` 将字符串str中的字母转化为大（小）写；
+9. `str.match(regExp)`接受一个参数`regExp`,其要么是一个正则表达式，要么是一个正则对象；作用和正则的`reg.exec(str)`方法一样,参考之即可；
+10. `str.search(regExp)` 接受一个参数，要么是一个正则表达式，要么是一个正则对象；如果在str中匹配到了正表达式，就返回匹配到的下标，否则就返回-1；例如：
+``` javascript
+    let str3 = 'I am Zhang shuaiFeng';
+    let reg = /.an/;
+    let regO = new RegExp('.an');
+    let regOb = new RegExp('.Ad')
+    console.log(str3.search(reg));// 6 匹配到了han
+    console.log(str3.search(regO)); // 6;
+    console.log(str3.search(regOb)); // -1 因为根本没没匹配到一个；
+```
+11. `str.replace(param,replacer)`将字符串`str`中匹配到的字符串替换成replacer，第一个参数可以是一个字符串也可以是一个正则表达式或者正则对象，第二个参数是’替换者‘。例如：
+``` javascript
+    let str4 = 'bat cat mat lat sat';
+var reg4 = /.at/;
+var reg5 = new RegExp('.at');
+var reg6  = /at/g;
+// 第一个参数是正则
+console.log(str4.replace(reg4, 'ond')); // ond cat mat lat sat，只匹配到一次，‘bat’所以被替换成了‘ond’
+console.log(str4.replace(reg5, 'ond'));// 同上；
+// 第一个参数是字符串
+console.log(str4.replace('at','ond')); // 同上，只匹配一次将第一个at，替换成了ond；
+// 全局匹配；
+console.log(str4.replace(reg6, 'ond'));// 同上；全局匹配，匹配了多次 bond cond mond lond sond
+
+```
+12. `str.split(sym[,Arrleg])`: 将字符串`str`根据分隔符`sym`分割成多个字符串，并将其置于一个数组中；返回之,还可以传如=入第二个参数来限定返回的数组的长度；例如
+``` javascript
+    let str5 = str4;
+    console.log(str5.split(' ')); // [ 'bat', 'cat', 'mat', 'lat', 'sat' ]
+    // 参数`sym`还可以正则表达式
+
 ```
