@@ -9,7 +9,7 @@ function Sum(params) {
     if (params > 1) {
         return params * arguments.callee(params - 1);
     }
-    else {
+    else { 
         return 1;
     }
 }
@@ -17,7 +17,7 @@ function Sum(params) {
 // 递归 求和；
 function Sum2(params) {
     if (params > 0) {
-        return  params+arguments.callee(params - 1);
+        return  params + arguments.callee(params - 1);
     }else{
         return 0
     }
@@ -26,7 +26,7 @@ function Sum2(params) {
 console.log(Sum2(12));
 //  this的理解
 function acer () {
-    get();//很明显是acer函数调用了这个函数
+    get();// 很明显是acer函数调用了这个函数
 }
 
 function get() {
