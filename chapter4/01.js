@@ -19,5 +19,6 @@ function changeColor() {
         color = 'blue';
     }
 }
+var app = [12,23];
 changeColor();
 console.log('Color is now ' + color);// red撒打算

@@ -407,15 +407,29 @@ var reg6  = /at/g;
 console.log(str4.replace(reg4, 'ond')); // ond cat mat lat sat，只匹配到一次，‘bat’所以被替换成了‘ond’
 console.log(str4.replace(reg5, 'ond'));// 同上；
 // 第一个参数是字符串
-console.log(str4.replace('at','ond')); // 同上，只匹配一次将第一个at，替换成了ond；
+console.log(str4.replace('at','ond')); // 同上，只匹配一次将第一个at，替换成了ond;
 // 全局匹配；
 console.log(str4.replace(reg6, 'ond'));// 同上；全局匹配，匹配了多次 bond cond mond lond sond
-
 ```
-12. `str.split(sym[,Arrleg])`: 将字符串`str`根据分隔符`sym`分割成多个字符串，并将其置于一个数组中；返回之,还可以传如=入第二个参数来限定返回的数组的长度；例如
+12. `str.split(sym[,Arrleg])`: 将字符串`str`根据分隔符`sym`分割成多个字符串，并将其置于一个数组中；返回之,还可以传入第二个参数来限定返回的数组的长度；例如
 ``` javascript
     let str5 = str4;
     console.log(str5.split(' ')); // [ 'bat', 'cat', 'mat', 'lat', 'sat' ]
     // 参数`sym`还可以正则表达式
-
 ```
+###5.7 单体内置对象
+`encodeURL(urlStr)`和`encodeURIComponent(urlStr)`:将URL进行编码，两者的区别是前者只会对本身不属于URL的特殊字符进行编码(如空格),而后者则是会对其发现的所有的非标准字符进行编码（包括双斜杠，问号等），其中urlStr是url字符串（深度编码）
+####5.7.1 关于eval
+`eval()`接受一个参数，要执行的javaScript代码字符串，其运行的时候，就相当于把js代码直接写在那里似的（本来就存在于那里一样）
+####5.7.2 关于Math对象的一些方法
+1. `max(min)()`:返回一组数据中最大（小）的那个；
+2. `ceil()`:向上舍入，总是将数值向上摄入为最接近的整数（比原值大）；
+3. `round()`:四舍五入；
+4. `floor()`:向下舍入，总是将数值向下舍入为最接近的整数（比原值小）；
+5. `random()`:返回一个介于0-1（≥0且小于1）的随机数
+>想要取得介于a-b之间的整数可以使用如下代码
+```javascript
+    var num = Math.floor(Math.random() * (b-a+1)+a);
+```
+这是因为`()`里面的取值范围是[a,b+1),然后对其向下取整,就是a-b之间的数
+###6
